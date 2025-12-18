@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>冷钱包安全指南 - 数字资产保护专家</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            border-left: 5px solid #667eea;
+            padding-left: 20px;
+        }
+
+        .subsection-title {
+            font-size: 1.6rem;
+            color: #34495e;
+            margin: 30px 0 20px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .subsection-title::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #667eea;
+            border-radius: 50%;
+            margin-right: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .warning-box::before {
+            content: '⚠️';
+            font-size: 2rem;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            opacity: 0.3;
+        }
+
+        .warning-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+        }
+
+        .step-item {
+            counter-increment: step-counter;
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .step-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .step-item::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: -20px;
+            top: 20px;
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .device-tabs {
+            display: flex;
+            background: #f1f3f4;
+            border-radius: 12px;
+            padding: 5px;
+            margin: 20px 0;
+        }
+
+        .device-tab {
+            flex: 1;
+            padding: 15px 20px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .device-tab.active {
+            background: white;
+            color: #667eea;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .device-content {
+            display: none;
+        }
+
+        .device-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: scale(1.05);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+
+        .comparison-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 5px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 40px 0;
+            margin-top: 60px;
+            opacity: 0.8;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .content-card {
+                padding: 25px;
+            }
+            
+            .device-tabs {
+                flex-direction: column;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="hero-title">🛡️ 冷钱包安全指南</h1>
+            <p class="hero-subtitle">专业的数字资产安全存储方案，保护您的加密货币免受网络威胁</p>
+        </header>
+
+        <div class="content-card">
+            <h2 class="section-title">什么是冷钱包？</h2>
+            
+            <div class="info-box">
+                <h3 class="warning-title">💡 核心概念</h3>
+                <p>冷钱包（Cold Wallet）是一种离线存储数字资产的设备或方法，私钥在完全隔离网络的环境下生成和存储，有效防止黑客攻击、恶意软件和网络钓鱼等在线威胁。</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>离线安全</h3>
+                    <p>私钥完全离线，不受网络攻击威胁</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💎</div>
+                    <h3>长期存储</h3>
+                    <p>适合大量数字资产的长期安全保存</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>攻击防护</h3>
+                    <p>有效防范各种在线安全威胁</p>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">冷钱包 vs 热钱包对比</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>特性</th>
+                        <th>冷钱包</th>
+                        <th>热钱包</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>网络连接</td>
+                        <td>❌ 完全离线</td>
+                        <td>✅ 保持在线</td>
+                    </tr>
+                    <tr>
+                        <td>安全性</td>
+                        <td>🟢 极高</td>
+                        <td>🟡 中等</td>
+                    </tr>
+                    <tr>
+                        <td>便捷性</td>
+                        <td>🟡 较复杂</td>
+                        <td>🟢 非常便捷</td>
+                    </tr>
+                    <tr>
+                        <td>适用场景</td>
+                        <td>长期存储、大额资产</td>
+                        <td>日常交易、小额资产</td>
+                    </tr>
+                    <tr>
+                        <td>成本</td>
+                        <td>🟡 需要硬件设备</td>
+                        <td>🟢 通常免费</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="content-card">
+            <h2 class="section-title">冷钱包制作教程</h2>
+            
+            <div class="warning-box">
+                <h3 class="warning-title">⚠️ 重要安全提醒</h3>
+                <ul style="margin-top: 15px; margin-left: 20px;">
+                    <li>请在完全干净、离线的设备上操作</li>
+                    <li>确保周围环境安全，避免摄像头和他人窥视</li>
+                    <li>备份短语请记录在纸质媒介上，妥善保管</li>
+                    <li>切勿在联网状态下输入或显示私钥</li>
+                    <li>建议先从小额测试开始，验证流程正确性</li>
+                </ul>
+            </div>
+
+            <div class="device-tabs">
+                <button class="device-tab active" onclick="showDevice('mobile')">📱 手机端</button>
+                <button class="device-tab" onclick="showDevice('desktop')">💻 电脑端</button>
+            </div>
+
+            <div id="mobile" class="device-content active">
+                <h3 class="subsection-title">📱 手机端冷钱包制作</h3>
+                
+                <div class="warning-box">
+                    <h4 class="warning-title">手机端风险提示</h4>
+                    <p>手机端相对更容易受到恶意软件攻击，建议仅用于小额测试，如需大量资产请使用专用硬件钱包。</p>
+                </div>
+
+                <ol class="step-list">
+                    <li class="step-item">
+                        <strong>准备离线设备</strong><br>
+                        使用一台完全离线的手机（建议使用旧设备）。确保该手机从未安装过任何钱包应用，且处于飞行模式状态。
+                    </li>
+                    <li class="step-item">
+                        <strong>下载钱包应用</strong><br>
+                        在电脑上下载官方钱包APK文件（如MetaMask、Trust Wallet等），通过USB传输到离线手机。推荐：MetaMask、Trust Wallet、ImToken。
+                    </li>
+                    <li class="step-item">
+                        <strong>安装应用</strong><br>
+                        在离线手机安装APK文件。安装后立即断开USB连接，确保手机处于完全离线状态。
+                    </li>
+                    <li class="step-item">
+                        <strong>创建新钱包</strong><br>
+                        打开钱包应用，选择"创建新钱包"。设置强密码（建议12位以上，包含字母、数字、符号）。
+                    </li>
+                    <li class="step-item">
+                        <strong>备份助记词</strong><br>
+                        系统会显示12-24个助记词。请将这些词按顺序记录在纸上，每行一个词。建议制作多份备份，存放在不同安全地点。
+                        <div class="code-block">
+                            示例：apple banana orange grape lemon cherry ...
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <strong>验证助记词</strong><br>
+                        应用会要求重新输入助记词以验证备份正确性。请仔细按顺序输入，确保备份准确无误。
+                    </li>
+                    <li class="step-item">
+                        <strong>获取钱包地址</strong><br>
+                        钱包创建完成后，记录显示的钱包地址。这个地址可以公开分享，用于接收数字资产。
+                    </li>
+                    <li class="step-item">
+                        <strong>安全存储设备</strong><br>
+                        将离线手机、密码纸妥善保管。建议使用防水防火的保险箱存放。可考虑使用金属助记词板进行二次备份。
+                    </li>
+                </ol>
+
+                <div class="info-box">
+                    <h4>✅ 手机端制作完成</h4>
+                    <p>您的手机冷钱包已经创建完成！请记住：</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>助记词是恢复钱包的唯一途径，请妥善保管</li>
+                        <li>密码丢失可通过助记词恢复，但助记词丢失无法恢复</li>
+                        <li>建议定期检查设备状态，确保硬件完好</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="desktop" class="device-content">
+                <h3 class="subsection-title">💻 电脑端冷钱包制作</h3>
+                
+                <div class="warning-box">
+                    <h4 class="warning-title">电脑端风险提示</h4>
+                    <p>电脑端相对更安全，但仍需注意：确保电脑系统干净，使用正版杀毒软件，避免安装来历不明的软件。</p>
+                </div>
+
+                <ol class="step-list">
+                    <li class="step-item">
+                        <strong>准备干净电脑</strong><br>
+                        使用一台专用电脑（可以是虚拟机或专用设备）。确保系统更新到最新，安装正版杀毒软件。
+                    </li>
+                    <li class="step-item">
+                        <strong>断开网络连接</strong><br>
+                        在创建钱包前，完全断开网络连接（拔掉网线、关闭WiFi）。确保整个创建过程在离线状态下进行。
+                    </li>
+                    <li class="step-item">
+                        <strong>下载官方钱包</strong><br>
+                        从官方网站下载钱包软件：<br>
+                        • MetaMask：https://metamask.io<br>
+                        • Electrum（比特币）：https://electrum.org<br>
+                        • MyEtherWallet：https://myetherwallet.com
+                    </li>
+                    <li class="step-item">
+                        <strong>验证软件完整性</strong><br>
+                        下载完成后，验证软件的哈希值或数字签名，确保下载的软件未被篡改。
+                        <div class="code-block">
+                            # Windows示例：使用CertUtil验证哈希值
+                            certutil -hashfile MetaMaskSetup.exe SHA256
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <strong>安装钱包</strong><br>
+                        在离线状态下安装钱包软件。安装完成后不要连接网络。
+                    </li>
+                    <li class="step-item">
+                        <strong>创建新钱包</strong><br>
+                        运行钱包软件，选择创建新钱包。设置复杂密码，确保密码强度足够。
+                    </li>
+                    <li class="step-item">
+                        <strong>备份助记词</strong><br>
+                        获得助记词后，建议采用以下备份策略：<br>
+                        • 纸质备份：手写在优质纸张上<br>
+                        • 金属备份：使用不锈钢助记词板<br>
+                        • 多地备份：存放在不同安全地点
+                    </li>
+                    <li class="step-item">
+                        <strong>导出公钥地址</strong><br>
+                        获取钱包的公钥地址（用于接收资产）。可以将地址导出为二维码或文本文件，存储在联网设备上。
+                    </li>
+                    <li class="step-item">
+                        <strong>离线签名工具</strong><br>
+                        对于需要发送交易的情况，建议使用离线签名工具：<br>
+                        • 准备一台联网电脑查看余额<br>
+                        • 在离线电脑创建交易<br>
+                        • 使用U盘传输签名数据<br>
+                        • 在联网电脑广播交易
+                    </li>
+                </ol>
+
+                <div class="info-box">
+                    <h4>🔧 高级：离线签名流程</h4>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li>在联网设备上创建未签名交易</li>
+                        <li>将交易数据保存到U盘</li>
+                        <li>在离线设备上导入交易并签名</li>
+                        <li>将签名后的交易传回联网设备</li>
+                        <li>在联网设备上广播交易</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2 class="section-title">💼 硬件钱包推荐</h2>
+            
+            <div class="warning-box">
+                <h3 class="warning-title">🏆 最安全的冷钱包选择</h3>
+                <p>硬件钱包是专业级的冷钱包解决方案，私钥存储在专用硬件设备中，即使连接电脑也不会泄露。</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🥇</div>
+                    <h3>Ledger Nano X</h3>
+                    <p>支持1000+币种，蓝牙连接，OLED屏幕显示</p>
+                    <strong>价格：¥1200-1500</strong>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🥈</div>
+                    <h3>Trezor Model T</h3>
+                    <p>触摸屏界面，开源固件，社区支持好</p>
+                    <strong>价格：¥2000-2500</strong>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🥉</div>
+                    <h3>KeepKey</h3>
+                    <p>简洁设计，支持多币种，性价比较高</p>
+                    <strong>价格：¥800-1000</strong>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">硬件钱包使用流程</h3>
+            <ol class="step-list">
+                <li class="step-item">
+                    <strong>硬件初始化</strong><br>
+                    首次使用硬件钱包时，按照屏幕提示完成初始化设置。
+                </li>
+                <li class="step-item">
+                    <strong>创建助记词</strong><br>
+                    钱包会生成24个助记词，请在纸上记录并妥善保管。
+                </li>
+                <li class="step-item">
+                    <strong>设置PIN码</strong><br>
+                    设置4-8位PIN码，防止他人直接使用设备。
+                </li>
+                <li class="step-item">
+                    <strong>安装配套软件</strong><br>
+                    下载官方配套软件（如Ledger Live），连接硬件钱包。
+                </li>
+                <li class="step-item">
+                    <strong>接收和发送资产</strong><br>
+                    所有交易都需要在硬件上确认，确保私钥不会离开设备。
+                </li>
+            </ol>
+        </div>
+
+        <div class="content-card">
+            <h2 class="section-title">⚠️ 重要安全提醒</h2>
+            
+            <div class="warning-box">
+                <h3 class="warning-title">🚨 最高级别风险提示</h3>
+                <p style="font-size: 1.1rem; margin-bottom: 15px;"><strong>数字资产一旦丢失，无法找回！请务必严格遵循以下安全准则：</strong></p>
+                
+                <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px; margin: 15px 0;">
+                    <h4>❌ 绝对不要做的事情：</h4>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>在联网状态下输入或显示助记词</li>
+                        <li>通过邮件、短信、社交媒体发送助记词</li>
+                        <li>将助记词存储在电子设备中（手机、电脑、云盘）</li>
+                        <li>告诉任何人您的助记词（包括客服）</li>
+                        <li>在公共场合或有人窥视时查看助记词</li>
+                        <li>从未知来源下载钱包软件</li>
+                        <li>在钱包应用中点击不明链接</li>
+                    </ul>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px; margin: 15px 0;">
+                    <h4>✅ 强烈建议做的事情：</h4>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>使用多重备份策略（纸质+金属备份）</li>
+                        <li>定期检查备份的完整性</li>
+                        <li>建立家庭应急恢复计划</li>
+                        <li>测试从小额恢复钱包的流程</li>
+                        <li>使用硬件钱包存储大额资产</li>
+                        <li>定期更新钱包软件和安全补丁</li>
+                        <li>保持设备和环境的物理安全</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h3>🛡️ 防护等级建议</h3>
+                <table style="width: 100%; margin-top: 15px;">
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.3);">
+                        <td style="padding: 10px;"><strong>小于 $1,000</strong></td>
+                        <td style="padding: 10px;">软件热钱包 + 基本安全习惯</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.3);">
+                        <td style="padding: 10px;"><strong>$1,000 - $10,000</strong></td>
+                        <td style="padding: 10px;">手机冷钱包或入门级硬件钱包</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.3);">
+                        <td style="padding: 10px;"><strong>$10,000 - $100,000</strong></td>
+                        <td style="padding: 10px;">专业硬件钱包 + 多重备份</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;"><strong>大于 $100,000</strong></td>
+                        <td style="padding: 10px;">多个硬件钱包分散存储 + 专业托管</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2 class="section-title">🆘 应急处理指南</h2>
+            
+            <h3 class="subsection-title">助记词丢失</h3>
+            <div class="warning-box">
+                <p><strong>如果助记词完全丢失：</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>立即停止使用该钱包地址</li>
+                    <li>如果还有设备可以访问钱包，尽快将资产转移到新钱包</li>
+                    <li>创建新钱包并使用更安全的备份策略</li>
+                    <li>寻求专业数据恢复服务（成功率极低）</li>
+                </ul>
+            </div>
+
+            <h3 class="subsection-title">怀疑钱包被入侵</h3>
+            <div class="warning-box">
+                <p><strong>如果怀疑钱包安全受到威胁：</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>立即断开设备网络连接</li>
+                    <li>不要在可疑设备上输入助记词</li>
+                    <li>使用其他干净设备创建新钱包</li>
+                    <li>将资产转移到新的安全钱包地址</li>
+                    <li>排查安全漏洞，更新安全措施</li>
+                </ul>
+            </div>
+
+            <h3 class="subsection-title">硬件钱包损坏</h3>
+            <div class="info-box">
+                <p><strong>硬件钱包物理损坏时的处理：</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>使用助记词在软件钱包中恢复</li>
+                    <li>或购买同品牌新设备进行恢复</li>
+                    <li>不要尝试自行拆解修理设备</li>
+                    <li>将恢复过程在离线环境中进行</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>💡 <strong>记住：您的资产安全是您自己的责任</strong></p>
+            <p style="margin-top: 10px;">本指南仅供参考，具体操作请以官方文档为准。建议在专业人士指导下进行大额资产操作。</p>
+            <p style="margin-top: 20px; opacity: 0.7;">最后更新：2024年 | 版本 1.0</p>
+        </div>
+    </div>
+
+    <script>
+        function showDevice(device) {
+            // 隐藏所有设备内容
+            const contents = document.querySelectorAll('.device-content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // 移除所有标签的active状态
+            const tabs = document.querySelectorAll('.device-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // 显示选中的设备内容
+            document.getElementById(device).classList.add('active');
+            
+            // 激活选中的标签
+            event.target.classList.add('active');
+        }
+
+        // 添加滚动动画
+        window.addEventListener('scroll', () => {
+            const cards = document.querySelectorAll('.content-card');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        // 初始化卡片动画
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.content-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.6s ease';
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+
+        // 添加平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
